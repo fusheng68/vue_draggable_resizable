@@ -67,7 +67,6 @@
             height: backdrop.height + 'px',
             width: backdrop.width + 'px',
             'background-color': backdrop.backgroung,
-            zoom: backdrop.zoom,
           }"
         >
           <vue-draggable-resizable
@@ -152,6 +151,16 @@
           @click="change_l18n(index)"
           :class="l18nStore.Index==index?'luag_select luag_con':'luag_con'">{{item.msg}}</div>
         </div>
+      </div>
+      <div class="dark">
+        <el-switch
+           v-model="isDark"
+           size="large"
+           style="--el-switch-on-color: #141414;"
+           inline-prompt
+           :active-icon="Moon"
+           :inactive-icon="Sunny"
+         />
       </div>
     </div>
     <div class="right">
@@ -423,8 +432,13 @@
 
 <script setup>
 import { reactive, ref, getCurrentInstance, nextTick, onMounted,computed } from "vue";
+import { useDark, useToggle } from '@vueuse/core'
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+toggleDark()
 const {proxy} = getCurrentInstance()
-import { Delete,Right,Back } from "@element-plus/icons-vue";
+import { Delete,Right,Back,Sunny,Moon } from "@element-plus/icons-vue";
 //引入组件 注意和vue2中的路径不同
 import VueDraggableResizable from "vue-draggable-resizable/src/components/vue-draggable-resizable.vue";
 //引入样式
@@ -814,12 +828,12 @@ function redo(){
     flex: 2;
     height: 98vh;
     min-width: 500px;
-    background-color: #f5f5f5;
+    background-color: var(--el-color-info-light-9);
     overflow: auto;
     position: relative;
     .contentbg{
       margin: 50px auto;
-      box-shadow: 1px 1px 10px 3px rgb(0 0 0 / 10%);
+      box-shadow: 1px 1px 10px 3px var(--el-color-info-light-5);
     }
     .content {
       user-select: none;
@@ -885,6 +899,12 @@ function redo(){
           color: #409eff;
         }
       }
+    }
+    .dark{
+      position: absolute;
+      top:5px;
+      right: 130px;
+      width: 50px;
     }
   }
 
