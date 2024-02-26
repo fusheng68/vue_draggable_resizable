@@ -434,9 +434,8 @@
 import { reactive, ref, getCurrentInstance, nextTick, onMounted,computed } from "vue";
 import { useDark, useToggle } from '@vueuse/core'
 
-const isDark = useDark()
+const isDark = useDark(false)
 const toggleDark = useToggle(isDark)
-toggleDark()
 const {proxy} = getCurrentInstance()
 import { Delete,Right,Back,Sunny,Moon } from "@element-plus/icons-vue";
 //引入组件 注意和vue2中的路径不同
